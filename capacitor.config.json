@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "mycatapp",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}
