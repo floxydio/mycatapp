@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import Main from './Main';
 import './theme/index.css'
+import App from './App';
 
 
 const container = document.getElementById('root');
