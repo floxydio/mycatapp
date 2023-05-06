@@ -27,12 +27,13 @@ import '@ionic/react/css/typography.css';
 // /* Theme variables */
 // import './theme/variables.css';
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 setupIonicReact();
 
 const Main: React.FC = () => (
    <IonApp>
-      <Login />
+      <Register />
    </IonApp>
 );
 
