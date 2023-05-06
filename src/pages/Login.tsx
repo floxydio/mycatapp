@@ -5,6 +5,7 @@ import imgLogo from "../assets/images/login_bg.jpg";
 import Spacing from '../Widgets/Spacing';
 import { useHistory } from 'react-router';
 import { IonReactRouter } from '@ionic/react-router';
+import axios from "axios"
 setupIonicReact();
 
 const Login: React.FC = () => {
@@ -13,17 +14,36 @@ const Login: React.FC = () => {
    const [password, setPassword] = useState("")
 
 
+   async function signIn() {
+      let response = await axios.post("http://103.52.115.176:3000/v1/signin", {
+         username: username,
+         password: password
+      })
+      if (response.status == 200) {
+         history.replace('/home')
+         window.localStorage.setItem("token", response.data.token)
+      } else if (response.status === 400) {
+         alert("Username or Password is wrong")
+      }
+
+   }
+
+
    return (
       <IonReactRouter>
          <IonPage>
             <IonContent style={{
             }}>
-               <IonImg src={imgLogo} alt="img_logo" />
+               <img src={imgLogo} style={{
+                  width: "100%",
+                  height: "65vh",
+                  objectFit: "cover"
+               }}></img>
                <h2 className="text-center text-3xl mt-10 mb-10">Login Your Account</h2>
                <IonInput style={{
                   width: "80%",
                   margin: "0 auto"
-               }} label="Username" labelPlacement="floating" fill="outline" placeholder="Enter your username"></IonInput>
+               }} label="Username" labelPlacement="floating" fill="outline" placeholder="Enter your username" onIonChange={(e) => setUsername(e.target.value as string)}></IonInput>
                <Spacing marginBottom='20px' />
 
                <IonInput
@@ -31,19 +51,22 @@ const Login: React.FC = () => {
                      width: "80%",
                      margin: "0 auto"
                   }}
-                  label="Password" labelPlacement="floating" fill="outline" placeholder="Enter your password"></IonInput>
+                  label="Password" labelPlacement="floating" fill="outline" placeholder="Enter your password" onIonChange={(e) => setPassword(e.target.value as string)}></IonInput>
                <Spacing marginBottom='20px' />
-               <div className='text-center'>Dont Have Account?<span onClick={() => { }}>Sign Up</span></div>
+               <div className='text-center text-sm font-light text-gray-400'>Dont Have Account? <span className='text-blue-500 font-bold' onClick={() => { }}>Sign Up</span></div>
                <Spacing marginBottom='20px' />
 
-               <IonButton onClick={() => {
-                  history.replace('/home')
+               <IonButton
+                  shape='round'
+                  property='fill'
+                  onClick={signIn} style={{
+                     width: "80%",
+                     display: "flex",
+                     margin: "0 auto"
+                  }}>Sign In</IonButton>
 
-               }} id="open-toast" className='w-80' style={{
-                  marginLeft: "10%",
-               }}>Sign In</IonButton>
+               <Spacing marginBottom='20px' />
 
-               <IonToast trigger="open-toast" message="This toast will disappear after 5 seconds" duration={5000}></IonToast>
             </IonContent>
          </IonPage >
       </IonReactRouter>

@@ -11,10 +11,7 @@ import {
    setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, triangle, person, home, chatbubble } from 'ionicons/icons';
-import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
-import Tab3 from './pages/Tab3';
+import Tab1 from './pages/Home';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -30,6 +27,9 @@ import Login from './pages/Login';
 
 setupIonicReact();
 
+const getToken = window.localStorage.getItem("token")
+
+
 const Main: React.FC = () => (
    <IonApp>
       <IonReactRouter >
@@ -39,7 +39,7 @@ const Main: React.FC = () => (
             </Route>
 
             <Route exact path="/">
-               <Redirect to="/login" />
+               {getToken === undefined ? <Redirect to="/login" /> : <Redirect to="/home" />}
             </Route>
             <Route path="/login">
                <Login />
