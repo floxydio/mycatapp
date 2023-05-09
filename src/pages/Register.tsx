@@ -8,7 +8,6 @@ setupIonicReact();
 
 const Register: React.FC = () => {
     const [datakota, setDataKota] = useState<KotaKabupaten[]>();
-    // BUAT MODEL DULU SEBELUM BIKIN KABUPATEN
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -59,7 +58,6 @@ const Register: React.FC = () => {
                 <IonList>
                     <IonItem>
                         <IonSelect aria-label="kota" placeholder="Pilih kota">
-                            {/* CARA MANGGILNYA KYK GINI, DIINGET BIAR GK LUPA */}
                             {datakota?.map((e) => (
                                 <IonSelectOption key={e.id} value={e.nama}>{e.nama}</IonSelectOption>
                             ))}
