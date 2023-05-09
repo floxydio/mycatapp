@@ -38,6 +38,9 @@ const Main: React.FC = () => (
             <Route exact path="/home">
                <Tab1 />
             </Route>
+            <Route exact path="/sign-up">
+               <Register/>
+            </Route>
 
             <Route exact path="/">
                <Redirect to="/login" />

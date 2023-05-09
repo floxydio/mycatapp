@@ -1,14 +1,32 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { IonButton, IonContent, IonImg, IonInput, IonPage, setupIonicReact, IonList, IonSelectOption, IonItem, IonSelect } from "@ionic/react";
 // import public assets
-import imgLogo from "../assets/images/login_bg.jpg";
+import imgLogo from "../assets/images/register_bg.jpg";
 import Spacing from '../Widgets/Spacing';
+import { KotaKabupaten } from '../models/KotaModel';
 setupIonicReact();
 
 const Register: React.FC = () => {
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
+    const [datakota, setDataKota] = useState<KotaKabupaten[]>();
+    // BUAT MODEL DULU SEBELUM BIKIN KABUPATEN
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
+
+    useEffect(() => {
+
+        const getDataKota = async () => {
+            await fetch("http://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=32")
+                .then(res => {  
+                    return res.json()
+                })
+                .then(data => {
+                    console.log(`DATA KABUPATEN ${data.kota_kabupaten}`)
+                    setDataKota(data.kota_kabupaten)
+                })
+        };
+        getDataKota()
+    }, [])
 
     return (
         <IonPage>
@@ -40,17 +58,18 @@ const Register: React.FC = () => {
 
                 <IonList>
                     <IonItem>
-                        <IonSelect aria-label="fruit" placeholder="Select fruit">
-                            <IonSelectOption value="apples">Apples</IonSelectOption>
-                            <IonSelectOption value="oranges">Oranges</IonSelectOption>
-                            <IonSelectOption value="bananas">Bananas</IonSelectOption>
+                        <IonSelect aria-label="kota" placeholder="Pilih kota">
+                            {/* CARA MANGGILNYA KYK GINI, DIINGET BIAR GK LUPA */}
+                            {datakota?.map((e) => (
+                                <IonSelectOption key={e.id} value={e.nama}>{e.nama}</IonSelectOption>
+                            ))}
                         </IonSelect>
                     </IonItem>
                 </IonList>
 
                 <IonButton className='w-80' style={{
                     marginLeft: "10%",
-                }}>Sign In</IonButton>
+                }}>Create Account</IonButton>
             </IonContent>
         </IonPage >
     );

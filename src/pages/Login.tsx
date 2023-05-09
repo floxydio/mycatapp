@@ -33,7 +33,9 @@ const Login: React.FC = () => {
                   }}
                   label="Password" labelPlacement="floating" fill="outline" placeholder="Enter your password"></IonInput>
                <Spacing marginBottom='20px' />
-               <div className='text-center'>Dont Have Account?<span onClick={() => { }}>Sign Up</span></div>
+               <div className='text-center'>Dont Have Account?<span onClick={() => {
+                  history.push("/sign-up")
+                }}>Sign Up</span></div>
                <Spacing marginBottom='20px' />
 
                <IonButton onClick={() => {
